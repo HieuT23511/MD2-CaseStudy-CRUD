@@ -20,107 +20,102 @@ export enum taxRate {
 }
 
 export class ManagerTaxPayers {
-    private listTaxPayers: TaxPayers[];
+    private readonly listTaxPayers: TaxPayers[];
 
     constructor() {
         this.listTaxPayers = [];
     }
+    findIndexByTaxCode(taxCode:number){
+        return this.listTaxPayers.findIndex(elements => taxCode === elements.getTaxCode())
+    }
+
 
     getListTaxPayers(): TaxPayers[] {
         return this.listTaxPayers;
     }
 
-    checkPayersDuplicate(taxCode: number) {
-        this.listTaxPayers.forEach(elements => {
-            if (taxCode === elements.getTaxCode()) {
-                console.log(`This Tax payers with tax code: ${taxCode} was existed!`)
-            } else {
-                console.log(`This Tax payers can be add in list`)
-            }
-        })
+    checkTaxPayers(taxCode: number) {
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payers with tax code ${taxCode} can be add in list`)
+        } else {
+            console.log(`This Tax payers with tax code ${taxCode} was existed`)
+        }
     }
 
     addTaxPayers(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: number, dependant: number, taxCode: number) {
-        // this.checkPayersDuplicate(taxCode) : need to check TaxPayers with input taxCode before add in list!
-        let newTaxPayers: TaxPayers = new TaxPayers(name, identify, phoneNumber, gmail, taxableIncome, dependant, taxCode);
-        this.listTaxPayers.push(newTaxPayers);
+        if(this.findIndexByTaxCode(taxCode) === -1){
+            let newTaxPayers: TaxPayers = new TaxPayers(name, identify, phoneNumber, gmail, taxableIncome, dependant, taxCode);
+            this.listTaxPayers.push(newTaxPayers);
+        } else {
+            console.log(`This Tax payers with tax code ${taxCode} was existed`)
+        }
     }
 
     editPhoneNumberOfTaxPayers(taxCode: number, phoneNumber: string) {
-        this.listTaxPayers.forEach(elements => {
-            if (taxCode === elements.getTaxCode()) {
-                elements.setPhoneNumber(phoneNumber)
-            } else {
-                console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
-            }
-        })
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
+        } else {
+            this.listTaxPayers[this.findIndexByTaxCode(taxCode)].setPhoneNumber(phoneNumber);
+        }
     }
 
     editGmailOfTaxPayers(taxCode: number, gmail: string) {
-        this.listTaxPayers.forEach(elements => {
-            if (taxCode === elements.getTaxCode()) {
-                elements.setGmail(gmail);
-            } else {
-                console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
-            }
-        })
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
+        } else {
+            this.listTaxPayers[this.findIndexByTaxCode(taxCode)].setGmail(gmail);
+        }
     }
 
     editTaxableIncomeOfTaxPayers(taxCode: number, taxableIncome: number) {
-        this.listTaxPayers.forEach(elements => {
-            if (taxCode === elements.getTaxCode()) {
-                elements.setTaxableIncome(taxableIncome);
-            } else {
-                console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
-            }
-        })
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
+        } else {
+            this.listTaxPayers[this.findIndexByTaxCode(taxCode)].setTaxableIncome(taxableIncome);
+        }
     }
 
     editDependantOfTaxPayers(taxCode: number, dependant: number) {
-        this.listTaxPayers.forEach(elements => {
-            if (taxCode === elements.getTaxCode()) {
-                elements.setDependant(dependant);
-            } else {
-                console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
-            }
-        })
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
+        } else {
+            this.listTaxPayers[this.findIndexByTaxCode(taxCode)].setDependant(dependant);
+        }
     }
 
     deleteTaxPayers(taxCode: number) {
-        this.listTaxPayers.forEach((elements, index) => {
-            if (taxCode === elements.getTaxCode()) {
-                this.listTaxPayers.splice(index, 1);
-                console.log(`This Tax payer with ${taxCode} deleted`)
-            } else {
-                console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
-            }
-        })
+        if(this.findIndexByTaxCode(taxCode)===-1){
+            console.log(`This Tax payer with ${taxCode} was not existed. Please re-enter Correct tax code!`);
+        } else {
+            this.listTaxPayers.splice(this.findIndexByTaxCode(taxCode),1);
+        }
     }
     findTaxPayers(name:string,identify:string){
         for (let i = 0; i < this.listTaxPayers.length; i++) {
             if (name === this.listTaxPayers[i].getName() && identify === this.listTaxPayers[i].getIdentify()) {
                 return this.listTaxPayers[i]
             }
-            else {
-                console.log(`This Tax payer with name: ${name} and identify: ${identify} was not existed. Please re-enter Correct infomation!`);
-            }
         }
+            console.log(`This Tax payer with name: ${name} and identify: ${identify} was not existed. Please re-enter Correct information!`);
     }
-    calculatePersonalIncomeTax(name:string,identify:string){
+    calculatePersonalIncomeTax(name:string,identify:string) :void{
         let taxPayers: TaxPayers | undefined = this.findTaxPayers(name,identify);
         if (taxPayers) {
             let familyCircumstanceDeductions: number = 11000000;
             let dependantDeductions: number = taxPayers.getDependant() * 4400000;
-            let compulsoryInsurance: number = 0.105;
-            let deductions: number = familyCircumstanceDeductions + dependantDeductions + compulsoryInsurance;
+            // let compulsoryInsurance: number = 0.105;
+            let deductions: number = familyCircumstanceDeductions + dependantDeductions;
             let assessableIncome: number = taxPayers.getTaxableIncome() - deductions;
-            let personalLevelTaxRateIncomeTax: number = 0;
+            let personalLevelTaxRateIncomeTax: number =0;
             switch (true) {
+                case assessableIncome <= 0:
+                    personalLevelTaxRateIncomeTax = 0;
+                    break;
                 case assessableIncome <= levelTaxRate.level1:
-                    personalLevelTaxRateIncomeTax = Math.ceil(assessableIncome * 0.05)
+                    personalLevelTaxRateIncomeTax = assessableIncome * 0.05
                     break;
                 case assessableIncome <= levelTaxRate.level2:
-                    personalLevelTaxRateIncomeTax = Math.ceil((assessableIncome - levelTaxRate.level1) * 0.1) + taxRate.rate1
+                    personalLevelTaxRateIncomeTax = (assessableIncome - levelTaxRate.level1) * 0.1 + taxRate.rate1
                     break;
                 case assessableIncome <= levelTaxRate.level3:
                     personalLevelTaxRateIncomeTax = Math.ceil((assessableIncome - levelTaxRate.level2) * 0.15) + taxRate.rate1 + taxRate.rate2
@@ -138,10 +133,7 @@ export class ManagerTaxPayers {
                     personalLevelTaxRateIncomeTax = Math.ceil((assessableIncome - levelTaxRate.level6) * 0.35) + taxRate.rate1 + taxRate.rate2 + taxRate.rate3 + taxRate.rate4 + taxRate.rate5 + taxRate.rate6
                     break;
             }
-            // Cần xử lí trường hợp tính thuế ra số âm (TNCT - các khoản trừ < 11tr)
-            return `The Personal Income Tax is : ${personalLevelTaxRateIncomeTax.toLocaleString()} VND`;
-        } else {
-            return `The tax code need to calculate PIT is not existed!`
+            console.log(`The Personal Income Tax of Tax payer with name: ${name} (identify: ${identify}) is : ${personalLevelTaxRateIncomeTax.toLocaleString()} VND`) ;
         }
     }
 }
