@@ -29,7 +29,7 @@ export class ManagerAccount {
     }
 
     registerAccount(taxCode: string, password: string) {
-        let newAccount: Account = new Account(taxCode, password)
+        let newAccount: Account = new TaxAdminAccount(taxCode, password)
         if(newAccount){
             this.listAccount.push(newAccount);
             console.log(`New Account with id: ${taxCode} registed successfully! `)

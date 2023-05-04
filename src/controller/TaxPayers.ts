@@ -7,9 +7,9 @@ export class TaxPayers {
     private _gmail: string;
     private _taxableIncome: number;
     private _dependant : number;
-    private _taxCode: number;
+    private _taxCode: string;
 
-    constructor(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: number, dependant: number, taxCode: number) {
+    constructor(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: number, dependant: number, taxCode: string) {
         this._name = name;
         this._identify = identify;
         this._phoneNumber = phoneNumber;
@@ -68,10 +68,10 @@ export class TaxPayers {
         this._dependant = value;
     }
 
-    getTaxCode(): number {
+    getTaxCode(): string {
         return this._taxCode;
     }
-    setTaxCode(value: number){
+    setTaxCode(value: string){
         this._taxCode = value;
     }
     showPersonalTaxIncome(){

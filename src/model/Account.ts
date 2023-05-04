@@ -1,23 +1,17 @@
-export class Account {
-    private _ID: string;
-    private _password: string;
+export abstract class Account {
+    protected _ID: string;
+    protected _password: string;
 
     constructor(ID: string, password: string) {
         this._ID = ID;
         this._password = password;
     }
 
-    getID(): string {
-        return this._ID;
-    }
-    setID(value:string){
-        this._ID = value;
-    }
-    getPassword(): string {
-        return this._password;
-    }
+    abstract getID(): string
 
-    setPassword(value: string) {
-        this._password = value;
-    }
+    abstract setID(value: string): void
+
+    abstract getPassword(): string
+
+    abstract setPassword(value: string): void
 }

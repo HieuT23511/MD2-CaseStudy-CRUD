@@ -7,18 +7,18 @@ export class TaxAdminAccount extends Account {
     }
 
     getID(): string {
-        return super.getID();
+        return this._ID ;
     }
 
     setID(value: string) {
-        super.setID(value);
+        this._ID = value;
     }
 
     getPassword(): string {
-        return super.getPassword();
+        return this._password;
     }
 
     setPassword(value: string) {
-        super.setPassword(value);
+        this._password = value;
     }
 }
