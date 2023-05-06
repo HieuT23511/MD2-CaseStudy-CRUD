@@ -1,5 +1,6 @@
 import { managerAccount, managerTax, pressEnterToBack, readlineSync} from "../../Main";
 import {MenuMain} from "./MenuMain";
+import {MenuEditTaxPayers} from "./MenuEditTaxPayers";
 
 const menuForAdmin: string[] = [
     'Manager Account',
@@ -14,7 +15,7 @@ const menuManagerAccount: string[] = [
 const menuManagerTaxPayers: string[] = [
     'Show list Tax Payers',
     'Calculate Personal Income Tax of Tax Payers',
-    'Add Tax Payers',
+    'Register Tax Payers',
     'Edit Info Tax Payers',
     'Delete Tax Payers'
 ]
@@ -26,11 +27,11 @@ export class MenuAdmin {
             let indexMenuForAdmin: number = readlineSync.keyInSelect(menuForAdmin, 'Select function:')
             switch (indexMenuForAdmin) {
                 case 0:
-                    MenuAdmin.managerAccount()
+                    this.managerAccount()
                     pressEnterToBack()
                     break;
                 case 1:
-                    MenuAdmin.managerTaxPayers()
+                    this.managerTaxPayers()
                     pressEnterToBack()
                     break;
                 default:
@@ -57,11 +58,7 @@ export class MenuAdmin {
             case 3:
                 managerAccount.deleteAccount();
                 break;
-            default:
-                if (readlineSync.keyInYN(`Are you sure cancel?`)) {
-                    MenuAdmin.option();
-                    break
-                }
+
         }
     }
 
@@ -70,44 +67,31 @@ export class MenuAdmin {
         let indexMenuManagerTaxPayers: number = readlineSync.keyInSelect(menuManagerTaxPayers, 'Select function:')
         switch (indexMenuManagerTaxPayers) {
             case 0:
+                console.log(` --- List Tax Payers : --- `)
                 console.table(managerTax.showListTaxPayers());
+                pressEnterToBack();
+                MenuAdmin.managerTaxPayers();
                 break;
             case 1:
                 managerTax.calculatePersonalIncomeTax();
+                pressEnterToBack();
+                MenuAdmin.managerTaxPayers();
                 break;
             case 2:
                 managerTax.registerTaxPayers();
+                pressEnterToBack();
+                MenuAdmin.managerTaxPayers();
                 break;
             case 3:
-                let menuEditTaxPayers: string[] = ['Edit Gmail', 'Edit Phone Number', 'Edit dependant', 'Edit Taxable Income'];
-                let index = readlineSync.keyInSelect(menuEditTaxPayers);
-                switch (index) {
-                    case 0:
-                        managerTax.editGmailOfTaxPayers();
-                        break;
-                    case 1:
-                        managerTax.editPhoneNumberOfTaxPayers();
-                        break;
-                    case 2:
-                        managerTax.editDependantOfTaxPayers();
-                        break;
-                    case 3:
-                        managerTax.editTaxableIncomeOfTaxPayers();
-                        break
-                    default:
-                        if (readlineSync.keyInYN()) {
-                            MenuAdmin.managerTaxPayers()
-                        }
-                }
+                MenuEditTaxPayers.option();
+                pressEnterToBack()
+                MenuAdmin.managerTaxPayers();
                 break;
             case 4:
                 managerTax.deleteTaxPayers();
+                pressEnterToBack()
+                MenuAdmin.managerTaxPayers();
                 break;
-            default:
-                if (readlineSync.keyInYN(`Are you sure cancel?`)) {
-                    MenuAdmin.option();
-                    break
-                }
         }
     }
 }

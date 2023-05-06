@@ -14,7 +14,6 @@ managerAccount.addAccount(taxPayerAccount1);
 managerAccount.addAccount(taxPayerAccount2);
 managerAccount.addAccount(taxPayerAccount3);
 managerAccount.addAccount(adminAccount);
-// console.table(managerAccount.showListAccount());
 export let managerTax = new ManagerTaxPayers();
 let person1 = new TaxPayers('A', 'CCCD1', 'phone1', 'a@gmail.com', 10000000, 1, '1');
 let person2 = new TaxPayers('B', 'CCCD2', 'phone2', 'b@gmail.com', 20000000, 2, '2');

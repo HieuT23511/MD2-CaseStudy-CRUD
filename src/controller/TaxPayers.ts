@@ -1,5 +1,4 @@
 import {levelTaxRate, taxRate} from "./ManagerTaxPayers";
-import {managerTax} from "../../Main";
 
 export class TaxPayers {
     private _name: string;
@@ -110,18 +109,18 @@ export class TaxPayers {
                 personalLevelTaxRateIncomeTax = Math.ceil((assessableIncome - levelTaxRate.level6) * 0.35) + taxRate.rate1 + taxRate.rate2 + taxRate.rate3 + taxRate.rate4 + taxRate.rate5 + taxRate.rate6
                 break;
         }
-        return `The Personal Income Tax is : ${personalLevelTaxRateIncomeTax.toLocaleString()} VND`;
+        return `${personalLevelTaxRateIncomeTax.toLocaleString()} VND`;
     }
 
     showInfoTaxPayers() {
-        console.log(`--- Personal Infomation: `)
-        console.log(`Name: ${this.getName()}`)
-        console.log(`Identify: ${this.getIdentify()}`)
-        console.log(`Phone Number: ${this.getPhoneNumber()}`)
-        console.log(`Gmail: ${this.getGmail()}`)
-        console.log(`Taxable Income: ${this.getTaxableIncome().toLocaleString()}`)
-        console.log(`Dependant: ${this.getDependant()}`)
-        console.log(`Tax Code: ${this.getTaxCode()}`)
-        console.log(`Personal Income Tax: ${this.showPersonalTaxIncome()}`)
+        console.log(`--- Personal Infomation: ---`)
+        console.log(`+ Name: ${this.getName()}`)
+        console.log(`+ Identify: ${this.getIdentify()}`)
+        console.log(`+ Phone Number: ${this.getPhoneNumber()}`)
+        console.log(`+ Gmail: ${this.getGmail()}`)
+        console.log(`+ Taxable Income: ${this.getTaxableIncome().toLocaleString()}`)
+        console.log(`+ Dependant: ${this.getDependant()}`)
+        console.log(`+ Tax Code: ${this.getTaxCode()}`)
+        console.log(`+ Personal Income Tax: ${this.showPersonalTaxIncome()}`)
     }
 }

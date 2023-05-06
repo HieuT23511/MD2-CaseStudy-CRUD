@@ -9,23 +9,22 @@ export class ManagerAccount {
     constructor() {
         this.listAccount = [];
     }
-    showListAccount (){
+
+    showListAccount() {
         return this.listAccount;
     }
-    findIndexByID (id:string){
+
+    findIndexByID(id: string) {
         return this.listAccount.findIndex(elements => elements.getID() === id);
     }
-    findTaxPayersAccountByID(id:string){
-        return this.listAccount.find(elements => elements.getID() === id);
-    }
 
-    checkAccount(id: string) {
-        if(this.findIndexByID(id)===-1){
-            console.log(`This ${id} can be register`)
-            return;
-        }
-            console.log(`This ${id} was existed`)
-    }
+    // checkAccount(id: string) {
+    //     if(this.findIndexByID(id)===-1){
+    //         console.log(`This ${id} can be register`)
+    //         return;
+    //     }
+    //         console.log(`This ${id} was existed`)
+    // }
 
     addAccount(account: TaxPayersAccount) {
         this.listAccount.push(account);
@@ -33,43 +32,41 @@ export class ManagerAccount {
 
     registerAccount(taxCode: string, password: string) {
         let newAccount: Account = new TaxAdminAccount(taxCode, password)
-        if(newAccount){
+        if (newAccount) {
             this.listAccount.push(newAccount);
-            console.log(`New Account with id: ${taxCode} registed successfully! `)
+            console.log(`New Account with id: ${taxCode} registered successfully! `)
         }
     }
 
     changePassword() {
         let inputID = readlineSync.question(`Input ID need change Password: `);
-        if(this.findIndexByID(inputID) === -1){
+        if (this.findIndexByID(inputID) === -1) {
             console.log(`This id : ${inputID} was not existed. Please register! `)
             return;
         }
-        let inputPassword = readlineSync.question(`Input password: `, {hideEchoBack:true})
-        let confirmPassword = readlineSync.question(`Confirm password: `, {hideEchoBack:true});
-            if(confirmPassword !==inputPassword){
-                console.log(`Confirm password doesn't match input Password. Please re-enter confirm Password`)
-                return;
-            }
-            this.listAccount[this.findIndexByID(inputID)].setPassword(inputPassword);
+        let inputPassword = readlineSync.question(`Input password: `, {hideEchoBack: true})
+        let confirmPassword = readlineSync.question(`Confirm password: `, {hideEchoBack: true});
+        if (confirmPassword !== inputPassword) {
+            console.log(`Confirm password doesn't match input Password. Please re-enter confirm Password`)
+            return;
+        }
+        this.listAccount[this.findIndexByID(inputID)].setPassword(inputPassword);
         console.log(`The Account with id ${inputID} changed password successfully!`)
     }
 
     deleteAccount() {
         let inputID = readlineSync.question(`Input ID need delete: `);
-        if(this.findIndexByID(inputID) === -1){
-            console.log(`This id : ${inputID} was not existed. Please re-enter ID exist! `)
-            return;
-        }
-        if(this.findIndexByID(inputID) === -1){
+        if (this.findIndexByID(inputID) === -1) {
             console.log(`This Account with id : ${inputID} was not existed. Please register! `)
             return;
         }
-            if(readlineSync.keyInYN()){
-                this.listAccount.splice(this.findIndexByID(inputID),1);
-                console.log(`The Account with id ${inputID} was deleted!`)
-                return;
-            }
-            this.deleteAccount();
+            console.log(`---- Information of Tax Payers that you want to delete: `)
+            console.log(this.listAccount[this.findIndexByID(inputID)]);
+        if (readlineSync.keyInYN()) {
+            this.listAccount.splice(this.findIndexByID(inputID), 1);
+            console.log(`The Account with id ${inputID} was deleted!`)
+            return;
+        }
+        this.deleteAccount();
     }
 }
