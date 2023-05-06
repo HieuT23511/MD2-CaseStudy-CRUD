@@ -13,7 +13,10 @@ export class ManagerAccount {
         return this.listAccount;
     }
     findIndexByID (id:string){
-        return this.listAccount.findIndex(elements => elements.getID() === id)
+        return this.listAccount.findIndex(elements => elements.getID() === id);
+    }
+    findTaxPayersAccountByID(id:string){
+        return this.listAccount.find(elements => elements.getID() === id);
     }
 
     checkAccount(id: string) {

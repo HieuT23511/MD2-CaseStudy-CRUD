@@ -2,7 +2,7 @@ export abstract class Account {
     protected _ID: string;
     protected _password: string;
 
-    constructor(ID: string, password: string) {
+    protected constructor(ID: string, password: string) {
         this._ID = ID;
         this._password = password;
     }

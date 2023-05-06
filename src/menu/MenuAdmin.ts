@@ -1,4 +1,4 @@
-import {init, managerAccount, managerTax, pressEnterToBack, readlineSync} from "../../Main";
+import { managerAccount, managerTax, pressEnterToBack, readlineSync} from "../../Main";
 import {MenuMain} from "./MenuMain";
 
 const menuForAdmin: string[] = [

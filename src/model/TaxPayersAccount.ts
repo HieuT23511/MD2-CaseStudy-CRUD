@@ -5,7 +5,6 @@ export class TaxPayersAccount extends Account {
 
     constructor(ID: string, password: string) {
         super(ID, password);
-        // this._identify = identify;
     }
     getID(): string {
         return this._ID;

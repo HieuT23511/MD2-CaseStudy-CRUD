@@ -115,6 +115,9 @@ export class ManagerTaxPayers {
         }
         console.log (`This Tax payer with identify: ${inputIdentify} was not existed. Please re-enter Correct information!`);
     }
+    findTaxPayersByTaxCode(taxCode:string){
+        return this.listTaxPayers.find(elements => elements.getTaxCode() === taxCode)
+    }
     calculatePersonalIncomeTax() :void{
         let taxPayers: TaxPayers | undefined = this.findTaxPayers();
         if (taxPayers) {

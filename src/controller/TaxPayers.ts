@@ -1,12 +1,13 @@
 import {levelTaxRate, taxRate} from "./ManagerTaxPayers";
+import {managerTax} from "../../Main";
 
 export class TaxPayers {
-    private _name:string;
+    private _name: string;
     private _identify: string;
     private _phoneNumber: string;
     private _gmail: string;
     private _taxableIncome: number;
-    private _dependant : number;
+    private _dependant: number;
     private _taxCode: string;
 
     constructor(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: number, dependant: number, taxCode: string) {
@@ -31,7 +32,7 @@ export class TaxPayers {
         return this._identify;
     }
 
-    setIdentify(value:string){
+    setIdentify(value: string) {
         this._identify = value;
     }
 
@@ -71,16 +72,18 @@ export class TaxPayers {
     getTaxCode(): string {
         return this._taxCode;
     }
-    setTaxCode(value: string){
+
+    setTaxCode(value: string) {
         this._taxCode = value;
     }
-    showPersonalTaxIncome(){
+
+    showPersonalTaxIncome() {
         let familyCircumstanceDeductions: number = 11000000;
         let dependantDeductions: number = this.getDependant() * 4400000;
         // let compulsoryInsurance: number = 0.105;
         let deductions: number = familyCircumstanceDeductions + dependantDeductions;
         let assessableIncome: number = this.getTaxableIncome() - deductions;
-        let personalLevelTaxRateIncomeTax: number =0;
+        let personalLevelTaxRateIncomeTax: number = 0;
         switch (true) {
             case assessableIncome <= 0:
                 personalLevelTaxRateIncomeTax = 0;
@@ -108,5 +111,17 @@ export class TaxPayers {
                 break;
         }
         return `The Personal Income Tax is : ${personalLevelTaxRateIncomeTax.toLocaleString()} VND`;
+    }
+
+    showInfoTaxPayers() {
+        console.log(`--- Personal Infomation: `)
+        console.log(`Name: ${this.getName()}`)
+        console.log(`Identify: ${this.getIdentify()}`)
+        console.log(`Phone Number: ${this.getPhoneNumber()}`)
+        console.log(`Gmail: ${this.getGmail()}`)
+        console.log(`Taxable Income: ${this.getTaxableIncome().toLocaleString()}`)
+        console.log(`Dependant: ${this.getDependant()}`)
+        console.log(`Tax Code: ${this.getTaxCode()}`)
+        console.log(`Personal Income Tax: ${this.showPersonalTaxIncome()}`)
     }
 }

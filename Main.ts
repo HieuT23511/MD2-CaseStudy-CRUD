@@ -57,5 +57,5 @@ function keySelect(data: string[]) {
 export function pressEnterToBack() {
     return readlineSync.question(`Press "Enter" to Back! `)
 }
-
 init();
+

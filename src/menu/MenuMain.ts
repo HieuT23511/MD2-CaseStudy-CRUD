@@ -1,6 +1,7 @@
-import {adminAccount, managerAccount, readlineSync} from "../../Main";
+import {adminAccount, managerAccount, managerTax, readlineSync} from "../../Main";
 import {MenuAdmin} from "./MenuAdmin";
 import {MenuTaxPayers} from "./MenuTaxPayers";
+import {TaxPayers} from "../controller/TaxPayers";
 
 export class MenuMain {
     static login() {
@@ -25,7 +26,10 @@ export class MenuMain {
                 return;
             }
             console.log(`Log-in role Tax Payers!`);
-            MenuTaxPayers.option();
+            let taxPayers : TaxPayers |undefined  = managerTax.findTaxPayersByTaxCode(idInput);
+            if(taxPayers){
+            MenuTaxPayers.option(taxPayers);
+            }
         }
     }
 
@@ -43,7 +47,6 @@ export class MenuMain {
         }
         managerAccount.registerAccount(inputTaxCode,inputPassword);
     }
-
     static forgotPassword() {
 
 
