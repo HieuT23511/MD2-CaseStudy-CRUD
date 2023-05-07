@@ -2,6 +2,7 @@ import {adminAccount, managerAccount, managerTax, readlineSync} from "../../Main
 import {MenuAdmin} from "./MenuAdmin";
 import {MenuTaxPayers} from "./MenuTaxPayers";
 import {TaxPayers} from "../controller/TaxPayers";
+import {Regex} from "../regex/Regex";
 
 export class MenuMain {
     static login() {
@@ -35,11 +36,15 @@ export class MenuMain {
 
     static register() {
         let inputTaxCode: string = readlineSync.question(`Input Taxcode of Tax Payers: `)
-        if(managerAccount.findIndexByID(inputTaxCode)!==-1){
-            console.log(`This id: ${inputTaxCode} was existed!`)
+        if(managerAccount.findIndexByID(inputTaxCode)!==-1 || !Regex.validateTaxCode(inputTaxCode)){
+            console.log(`This id: ${inputTaxCode} is invalid!`)
             return;
         }
         let inputPassword:string = readlineSync.question(`Input Password: `, {hideEchoBack:true});
+        if(!Regex.validatePassword(inputPassword)){
+            console.log(`This ${inputPassword} is invalid!`)
+            return;
+        }
         let confirmPassword:string = readlineSync.question(`Confirm Password: `, {hideEchoBack:true});
         if(confirmPassword !==inputPassword){
             console.log(`Confirm password doesn't match input Password. Please re-enter confirm Password`)
@@ -48,7 +53,11 @@ export class MenuMain {
         managerAccount.registerAccount(inputTaxCode,inputPassword);
     }
     static forgotPassword() {
-
-
+         let id = readlineSync.question(`Input your ID: `);
+        if(managerAccount.findIndexByID(id)===-1){
+            console.log(`This Account with ID: '${id}' was not existed!`);
+            return;
+        }
+        console.log(`Reset password sent your register Email!`);
     }
 }

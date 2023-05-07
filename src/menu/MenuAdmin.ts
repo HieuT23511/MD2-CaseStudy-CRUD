@@ -48,17 +48,24 @@ export class MenuAdmin {
         switch (indexMenuManagerAccount) {
             case 0:
                 console.table(managerAccount.showListAccount());
+                pressEnterToBack();
+                this.managerAccount()
                 break;
             case 1:
-                MenuMain.register()
+                MenuMain.register();
+                pressEnterToBack();
+                this.managerAccount();
                 break;
             case 2:
                 managerAccount.changePassword();
+                pressEnterToBack();
+                this.managerAccount();
                 break;
             case 3:
                 managerAccount.deleteAccount();
+                pressEnterToBack();
+                this.managerAccount();
                 break;
-
         }
     }
 

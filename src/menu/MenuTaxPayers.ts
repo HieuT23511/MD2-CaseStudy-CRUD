@@ -1,5 +1,5 @@
 import {TaxPayers} from "../controller/TaxPayers";
-import { pressEnterToBack, readlineSync} from "../../Main";
+import {pressEnterToBack, readlineSync} from "../../Main";
 import {MenuEditInformation} from "./Menu_Edit_Infomation";
 
 const menuForTaxPayers: string[] = ['Show Information', 'Edit Information'];

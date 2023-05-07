@@ -2,6 +2,7 @@ import {Account} from "../model/Account";
 import {TaxAdminAccount} from "../model/TaxAdminAccount";
 import {TaxPayersAccount} from "../model/TaxPayersAccount";
 import {readlineSync} from "../../Main";
+import {Regex} from "../regex/Regex";
 
 export class ManagerAccount {
     private readonly listAccount: Account[];
@@ -17,14 +18,6 @@ export class ManagerAccount {
     findIndexByID(id: string) {
         return this.listAccount.findIndex(elements => elements.getID() === id);
     }
-
-    // checkAccount(id: string) {
-    //     if(this.findIndexByID(id)===-1){
-    //         console.log(`This ${id} can be register`)
-    //         return;
-    //     }
-    //         console.log(`This ${id} was existed`)
-    // }
 
     addAccount(account: TaxPayersAccount) {
         this.listAccount.push(account);
@@ -45,6 +38,10 @@ export class ManagerAccount {
             return;
         }
         let inputPassword = readlineSync.question(`Input password: `, {hideEchoBack: true})
+        if (!Regex.validatePassword(inputPassword)) {
+            console.log(`This ${inputPassword} is invalid!`)
+            return;
+        }
         let confirmPassword = readlineSync.question(`Confirm password: `, {hideEchoBack: true});
         if (confirmPassword !== inputPassword) {
             console.log(`Confirm password doesn't match input Password. Please re-enter confirm Password`)
@@ -60,8 +57,8 @@ export class ManagerAccount {
             console.log(`This Account with id : ${inputID} was not existed. Please register! `)
             return;
         }
-            console.log(`---- Information of Tax Payers that you want to delete: `)
-            console.log(this.listAccount[this.findIndexByID(inputID)]);
+        console.log(`---- Information of Tax Payers that you want to delete: `)
+        console.log(this.listAccount[this.findIndexByID(inputID)]);
         if (readlineSync.keyInYN()) {
             this.listAccount.splice(this.findIndexByID(inputID), 1);
             console.log(`The Account with id ${inputID} was deleted!`)

@@ -5,11 +5,11 @@ export class TaxPayers {
     private _identify: string;
     private _phoneNumber: string;
     private _gmail: string;
-    private _taxableIncome: number;
-    private _dependant: number;
+    private _taxableIncome: string;
+    private _dependant: string;
     private _taxCode: string;
 
-    constructor(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: number, dependant: number, taxCode: string) {
+    constructor(name: string, identify: string, phoneNumber: string, gmail: string, taxableIncome: string, dependant: string, taxCode: string) {
         this._name = name;
         this._identify = identify;
         this._phoneNumber = phoneNumber;
@@ -52,19 +52,19 @@ export class TaxPayers {
         this._gmail = value;
     }
 
-    getTaxableIncome(): number {
+    getTaxableIncome(): string {
         return this._taxableIncome;
     }
 
-    setTaxableIncome(value: number) {
+    setTaxableIncome(value: string) {
         this._taxableIncome = value;
     }
 
-    getDependant(): number {
+    getDependant(): string {
         return this._dependant;
     }
 
-    setDependant(value: number) {
+    setDependant(value: string) {
         this._dependant = value;
     }
 
@@ -78,10 +78,10 @@ export class TaxPayers {
 
     showPersonalTaxIncome() {
         let familyCircumstanceDeductions: number = 11000000;
-        let dependantDeductions: number = this.getDependant() * 4400000;
+        let dependantDeductions: number = +this.getDependant() * 4400000;
         // let compulsoryInsurance: number = 0.105;
         let deductions: number = familyCircumstanceDeductions + dependantDeductions;
-        let assessableIncome: number = this.getTaxableIncome() - deductions;
+        let assessableIncome: number = +this.getTaxableIncome() - deductions;
         let personalLevelTaxRateIncomeTax: number = 0;
         switch (true) {
             case assessableIncome <= 0:
