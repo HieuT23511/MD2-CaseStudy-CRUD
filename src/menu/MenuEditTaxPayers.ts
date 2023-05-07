@@ -3,7 +3,12 @@ import {MenuAdmin} from "./MenuAdmin";
 
 export class MenuEditTaxPayers {
     static option() {
-        let menuEditTaxPayers: string[] = ['Edit Gmail', 'Edit Phone Number', 'Edit dependant', 'Edit Taxable Income'];
+        let menuEditTaxPayers: string[] = [
+            'Edit Gmail',
+            'Edit Phone Number',
+            'Edit dependant',
+            'Edit Taxable Income'
+        ];
         let index = readlineSync.keyInSelect(menuEditTaxPayers);
         switch (index) {
             case 0:
