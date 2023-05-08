@@ -42,7 +42,7 @@ export class MenuMain {
         }
         let inputPassword:string = readlineSync.question(`Input Password: `, {hideEchoBack:true});
         if(!Regex.validatePassword(inputPassword)){
-            console.log(`This ${inputPassword} is invalid!`)
+            console.log(`This password is invalid!`)
             return;
         }
         let confirmPassword:string = readlineSync.question(`Confirm Password: `, {hideEchoBack:true});
